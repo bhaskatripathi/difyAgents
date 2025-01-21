@@ -1,0 +1,269 @@
+app:
+  description: '```xml
+
+    <instruction>
+
+    Based on the user''s prompt, your task is to generate an image. Follow these steps:
+
+
+    1. Understand the content specified by the user in the variable {{user_prompt}}.
+
+    2. Visualize the content and break it down into simple shapes and elements.
+
+    3. Start describing the drawing process step by step, starting from the basic
+    shapes and gradually adding details.
+
+    4. Make sure your description is clear, detailed, and easy to follow.
+
+    5. Do not include any XML tags in your output.
+
+
+    For example, if the user prompt is "a tree", your description might start with
+    "Start by drawing a vertical line for the trunk, then add a circle for the crown
+    of the tree. Gradually add more details like branches, leaves, etc."
+
+    </instruction>
+
+
+    <input>
+
+    {{user_prompt}}
+
+    </input>
+
+
+    <output>
+
+    {{drawing_instructions}}
+
+    </output>
+
+    ```'
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: agent-chat
+  name: Image Generation
+  use_icon_as_answer_icon: true
+kind: app
+model_config:
+  agent_mode:
+    enabled: true
+    max_iteration: 5
+    prompt: null
+    strategy: function_call
+    tools:
+    - enabled: false
+      isDeleted: false
+      notAuthor: false
+      provider_id: dalle
+      provider_name: dalle
+      provider_type: builtin
+      tool_label: DALL-E 3
+      tool_name: dalle3
+      tool_parameters:
+        n: ''
+        prompt: ''
+        quality: ''
+        size: ''
+        style: ''
+    - enabled: true
+      isDeleted: false
+      notAuthor: false
+      provider_id: fal
+      provider_name: fal
+      provider_type: builtin
+      tool_label: FLUX.1 [dev]
+      tool_name: flux_1_dev
+      tool_parameters:
+        enable_safety_checker: ''
+        guidance_scale: ''
+        image_size: ''
+        num_images: ''
+        num_inference_steps: ''
+        prompt: ''
+        seed: ''
+        sync_mode: ''
+    - enabled: false
+      isDeleted: false
+      notAuthor: false
+      provider_id: fal
+      provider_name: fal
+      provider_type: builtin
+      tool_label: Wizper
+      tool_name: wizper
+      tool_parameters:
+        audio_file: ''
+        chunk_level: ''
+        language: ''
+        task: ''
+        version: ''
+    - enabled: true
+      isDeleted: false
+      notAuthor: false
+      provider_id: fal
+      provider_name: fal
+      provider_type: builtin
+      tool_label: FLUX 1.1 [pro] ultra
+      tool_name: flux_1_1_pro_ultra
+      tool_parameters:
+        aspect_ratio: ''
+        enable_safety_checker: ''
+        num_images: ''
+        prompt: ''
+        raw: ''
+        safety_tolerance: ''
+        seed: ''
+        sync_mode: ''
+    - enabled: false
+      isDeleted: false
+      notAuthor: false
+      provider_id: fal
+      provider_name: fal
+      provider_type: builtin
+      tool_label: FLUX 1.1 [pro]
+      tool_name: flux_1_1_pro
+      tool_parameters:
+        enable_safety_checker: ''
+        image_size: ''
+        num_images: ''
+        prompt: ''
+        safety_tolerance: ''
+        seed: ''
+        sync_mode: ''
+    - enabled: true
+      isDeleted: false
+      notAuthor: false
+      provider_id: dalle
+      provider_name: dalle
+      provider_type: builtin
+      tool_label: DALL-E 2
+      tool_name: dalle2
+      tool_parameters:
+        n: ''
+        prompt: ''
+        size: ''
+  annotation_reply:
+    enabled: false
+  chat_prompt_config: {}
+  completion_prompt_config: {}
+  dataset_configs:
+    datasets:
+      datasets: []
+    reranking_enable: true
+    retrieval_model: multiple
+    top_k: 4
+  dataset_query_variable: ''
+  external_data_tools: []
+  file_upload:
+    allowed_file_extensions:
+    - .JPG
+    - .JPEG
+    - .PNG
+    - .GIF
+    - .WEBP
+    - .SVG
+    - .MP4
+    - .MOV
+    - .MPEG
+    - .MPGA
+    allowed_file_types: []
+    allowed_file_upload_methods:
+    - remote_url
+    - local_file
+    enabled: false
+    image:
+      detail: high
+      enabled: false
+      number_limits: 3
+      transfer_methods:
+      - remote_url
+      - local_file
+    number_limits: 3
+  model:
+    completion_params:
+      stop: []
+    mode: chat
+    name: gpt-4
+    provider: openai
+  more_like_this:
+    enabled: false
+  opening_statement: ''
+  pre_prompt: '```xml
+
+    <instruction>
+
+    Based on the user''s selection of model and the given prompt, generate an image.
+    Follow the steps below:
+
+
+    1. Identify the model selected by the user
+
+
+    2. Take the user''s prompt for the image generation. This will be provided in
+    the variable {{user_prompt}}.
+
+
+    3. Use the selected model to generate an image based on the user''s prompt.
+
+
+    4. Ensure the generated image aligns with the user''s prompt and the characteristics
+    of the selected model.
+
+
+    5. Return the generated image.
+
+
+    Note: The output should not contain any XML tags.
+
+    </instruction>
+
+
+    <input>
+
+    <selected_model>dalledalle3</selected_model>
+
+    <user_prompt>A beautiful sunset over the ocean</user_prompt>
+
+    </input>
+
+
+    <output>
+
+    [Generated Image]
+
+    </output>
+
+
+    <example>
+
+    For instance, if the selected model is ''dalledalle3'' and the user''s prompt
+    is ''A beautiful sunset over the ocean'', generate an image that depicts a beautiful
+    sunset over the ocean using the ''dalledalle3'' model.
+
+    </example>
+
+    ```
+
+    '
+  prompt_type: simple
+  retriever_resource:
+    enabled: true
+  sensitive_word_avoidance:
+    enabled: false
+  speech_to_text:
+    enabled: true
+  suggested_questions: []
+  suggested_questions_after_answer:
+    enabled: true
+  text_to_speech:
+    autoPlay: disabled
+    enabled: false
+    language: ''
+    voice: ''
+  user_input_form:
+  - text-input:
+      default: ''
+      label: user_prompt
+      required: false
+      variable: user_prompt
+version: 0.1.5
